@@ -6,12 +6,13 @@ namespace CryptoSoft
     {
         static void Main(string[] args)
         {
+           
+           Encryption E = new Encryption();
 
-            Encryption E = new Encryption();
+           E.EncryptFile("C:\\Test\\test.txt", "C:\\New\\test.txt");
 
-           E.EncryptFile("C:\\Users\\ASUS\\Desktop\\ok\\haha.txt", "C:\\Users\\ASUS\\Desktop\\test\\haha.txt");    // Encrypt
-            
-          // E.DecryptFile("C:\\Users\\ASUS\\Desktop\\test\\haha.txt", "C:\\Users\\ASUS\\Desktop\\temp\\haha.txt");   // Decrypt
+          // E.DecryptFile"C:\\Test\\test.txt", "C:\\New\\test.txt");
+
         }
     }
 }
