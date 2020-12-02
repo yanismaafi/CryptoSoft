@@ -9,9 +9,9 @@ namespace CryptoSoft
 
             Encryption E = new Encryption();
 
-           E.EncryptFile("C:\\Users\\ASUS\\Desktop\\ok\\haha.txt", "C:\\Users\\ASUS\\Desktop\\test\\haha.txt");    // Encrypt
+           E.EncryptFile("C:\\Users\\ASUS\\Desktop\\ok\\haha.txt", "C:\\Users\\ASUS\\Desktop\\test\\haha.txt");
             
-          // E.DecryptFile("C:\\Users\\ASUS\\Desktop\\test\\haha.txt", "C:\\Users\\ASUS\\Desktop\\temp\\haha.txt");   // Decrypt
+          // E.DecryptFile("C:\\Users\\ASUS\\Desktop\\test\\haha.txt", "C:\\Users\\ASUS\\Desktop\\temp\\haha.txt");
         }
     }
 }
