@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 using System.IO;
 
 namespace CryptoSoft
@@ -10,49 +11,46 @@ namespace CryptoSoft
     class Encryption
     {
 
+
         public void EncryptFile(string sourceFile, string destinationPath)
         {
 
-            File file = new File();
-            
-            if ( file.checkExistance(sourceFile) == true )
+            try
             {
-                try
+                string password = "yanis123";
+                UnicodeEncoding UE = new UnicodeEncoding();
+                byte[] key = UE.GetBytes(password);            // Encode our password into a sequence of bytes.
+
+
+                FileStream fsCrypt = new FileStream(destinationPath, FileMode.Create);   // Create the fsCrypt File in destination Path
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+
+                CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);    // Cryptage Algorithm
+
+                FileStream fsIn = new FileStream(sourceFile, FileMode.Open);    // Open the source File
+
+                int data;
+                while ((data = fsIn.ReadByte()) != -1)    // Loop on the source file byte by byte 
                 {
-                    string password = "yanis123";
-                    UnicodeEncoding UE = new UnicodeEncoding();
-                    byte[] key = UE.GetBytes(password);         // Encodes password into a sequence of bytes.
-
-
-                    FileStream fsCrypt = new FileStream(destinationPath, FileMode.Create);     // Create fsCrypt into destination Path
-
-                    RijndaelManaged RMCrypto = new RijndaelManaged();
-
-                    CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);   //  Cryptage Algorithm
-
-                    FileStream fsIn = new FileStream(sourceFile, FileMode.Open);      // Open the source File  
-
-                    int data;
-                    while ((data = fsIn.ReadByte()) != -1)          //Loop on the source file Byte by Byte
-                    {
-                        cs.WriteByte((byte)data);                  // Encrypt and write into fsCrypt
-                    }
-
-
-                    fsIn.Close();    // Close all files
-                    cs.Close();
-                    fsCrypt.Close();
-
-                    Console.WriteLine("\n File Crypted !");
-
+                    cs.WriteByte((byte)data);        // Encrypt and write into fsCrypt File 
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("\n Error", e);
-                }
+
+
+                fsIn.Close();      // Close files
+                cs.Close();
+                fsCrypt.Close();
+
+                Console.WriteLine("\n File Crypted !");
 
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("\n Error", e);
+            }
+
         }
+
 
 
 
@@ -60,7 +58,7 @@ namespace CryptoSoft
         {
             File file = new File();
 
-            if (file.checkExistance(sourceFile) == true )
+            if (file.checkExistance(sourceFile) == true)
             {
 
                 try
@@ -73,9 +71,7 @@ namespace CryptoSoft
 
                     RijndaelManaged RMCrypto = new RijndaelManaged();
 
-                    CryptoStream cs = new CryptoStream(fsCrypt,
-                        RMCrypto.CreateDecryptor(key, key),
-                        CryptoStreamMode.Read);
+                    CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateDecryptor(key, key), CryptoStreamMode.Read);
 
                     FileStream fsOut = new FileStream(destinationPath, FileMode.Create);
 
@@ -98,9 +94,11 @@ namespace CryptoSoft
                 }
             }
 
-       
+
         }
 
-
     }
+
 }
+    
+
