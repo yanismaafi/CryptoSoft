@@ -17,9 +17,9 @@ namespace CryptoSoft
         public bool checkExistance(string File)
         {
            if(System.IO.File.Exists(File) == true)
-            {
+           {
                 return true;
-            }
+           }
 
             return false;
         }

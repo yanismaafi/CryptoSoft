@@ -14,39 +14,47 @@ namespace CryptoSoft
 
         public void EncryptFile(string sourceFile, string destinationPath)
         {
+            File file = new File();
 
-            try
+            if ( file.checkExistance(sourceFile) == true )
             {
-                string password = "yanis123";
-                UnicodeEncoding UE = new UnicodeEncoding();
-                byte[] key = UE.GetBytes(password);            // Encode our password into a sequence of bytes.
+                    try
+                    {
+                        string password = "yanis123";
+                        UnicodeEncoding UE = new UnicodeEncoding();
+                        byte[] key = UE.GetBytes(password);            // Encode our password into a sequence of bytes.
 
 
-                FileStream fsCrypt = new FileStream(destinationPath, FileMode.Create);   // Create the fsCrypt File in destination Path
+                        FileStream fsCrypt = new FileStream(destinationPath, FileMode.Create);   // Create the fsCrypt File in destination Path
 
-                RijndaelManaged RMCrypto = new RijndaelManaged();
+                        RijndaelManaged RMCrypto = new RijndaelManaged();
 
-                CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);    // Cryptage Algorithm
+                        CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);    // Cryptage Algorithm
 
-                FileStream fsIn = new FileStream(sourceFile, FileMode.Open);    // Open the source File
+                        FileStream fsIn = new FileStream(sourceFile, FileMode.Open);    // Open the source File
 
-                int data;
-                while ((data = fsIn.ReadByte()) != -1)    // Loop on the source file byte by byte 
-                {
-                    cs.WriteByte((byte)data);        // Encrypt and write into fsCrypt File 
-                }
+                        int data;
+                        while ((data = fsIn.ReadByte()) != -1)    // Loop on the source file byte by byte 
+                        {
+                            cs.WriteByte((byte)data);        // Encrypt and write into fsCrypt File 
+                        }
 
 
-                fsIn.Close();      // Close files
-                cs.Close();
-                fsCrypt.Close();
+                        fsIn.Close();      // Close files
+                        cs.Close();
+                        fsCrypt.Close();
 
-                Console.WriteLine("\n File Crypted !");
+                        Console.WriteLine("\n File Crypted !");
 
-            }
-            catch (Exception e)
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("\n Error", e);
+                    }
+
+            }else
             {
-                Console.WriteLine("\n Error", e);
+                Console.WriteLine("The File :" + sourceFile + " Dosen't exist !");
             }
 
         }
@@ -92,6 +100,10 @@ namespace CryptoSoft
                 {
                     Console.WriteLine("\n Error", e);
                 }
+           
+            }else
+            {
+                Console.WriteLine("The File :"+sourceFile +" Dosen't exist !");
             }
 
 
