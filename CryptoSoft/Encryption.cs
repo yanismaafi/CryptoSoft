@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Security.AccessControl;
 using System.Security.Cryptography;
-using System.Runtime.InteropServices;
 using System.IO;
 
 namespace CryptoSoft
@@ -16,7 +14,7 @@ namespace CryptoSoft
         {
             File file = new File();
 
-            if ( file.checkExistance(sourceFile) == true )
+            if ( file.checkExistance(sourceFile) == true )           // Check if file exist
             {
                     try
                     {
@@ -49,7 +47,7 @@ namespace CryptoSoft
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("\n Error", e);
+                        Console.WriteLine("\n Error"+ e);
                     }
 
             }else
@@ -98,7 +96,7 @@ namespace CryptoSoft
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("\n Error", e);
+                    Console.WriteLine("\n Error"+ e);
                 }
            
             }else
